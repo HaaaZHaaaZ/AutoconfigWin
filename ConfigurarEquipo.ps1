@@ -1,3 +1,15 @@
+# Verificar si el script se está ejecutando con permisos de administrador
+function Test-Admin {
+    $currentUser = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+    if (-not $currentUser.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+        Write-Host "Este script debe ejecutarse con permisos de administrador." -ForegroundColor Red
+        exit
+    }
+}
+
+# Ejecutar la verificación de permisos de administrador
+Test-Admin
+
 # Banner de inicio
 function Show-Banner {
     $banner = @"
