@@ -212,14 +212,8 @@ function Personalizar-Escritorio {
 function Configurar-AnyDesk {
     Write-Host "Configurando AnyDesk..." -ForegroundColor Cyan
     try {
-        $configPath = "$env:APPDATA\AnyDesk\service.conf"
         $password = "Soporte2025"
-        $passwordHash = [System.Text.Encoding]::UTF8.GetBytes($password) | % { $_.ToString("x2") } -join ""
-        $content = @"
-[security]
-password_hash=$passwordHash
-"@
-        $content | Out-File -FilePath $configPath -Encoding UTF8 -Force
+        echo $password | & "C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --set-password
         Write-Host "Contraseña de AnyDesk configurada correctamente." -ForegroundColor Green
         $anydeskID = & "C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --get-id
         Write-Host "ID de AnyDesk: $anydeskID" -ForegroundColor Cyan
