@@ -67,8 +67,15 @@ function Instalar-Programas {
 
         # Verificar nuevamente si Chocolatey se instaló correctamente
         if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
-            Write-Host "Error: Chocolatey no se pudo instalar." -ForegroundColor Red
-            return
+            Write-Host "Error: Chocolatey no se pudo instalar. Eliminando carpeta residual y reintentando..." -ForegroundColor Red
+            Remove-Item -Recurse -Force "C:\ProgramData\chocolatey"
+            iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+            # Verificar una última vez si Chocolatey se instaló correctamente
+            if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
+                Write-Host "Error: Chocolatey no se pudo instalar después de reintentar." -ForegroundColor Red
+                return
+            }
         }
     }
 
