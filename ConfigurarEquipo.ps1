@@ -37,25 +37,42 @@ Show-Banner
 # Funciones para cada accion
 # -------------------------------
 
+function Get-ActiveNetworkAdapter {
+    $adapters = Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
+    foreach ($adapter in $adapters) {
+        if (Test-Connection -ComputerName google.com -InterfaceAlias $adapter.Name -Count 1 -Quiet) {
+            return $adapter.Name
+        }
+    }
+    return $null
+}
+
 function Configurar-IP {
     Write-Host "`n=== Configuracion de Red ===" -ForegroundColor Cyan
+    $adapterName = Get-ActiveNetworkAdapter
+    if ($null -eq $adapterName) {
+        Write-Host "No se encontró un adaptador de red con conexión a Internet." -ForegroundColor Red
+        return
+    }
+    Write-Host "Adaptador de red activo: $adapterName" -ForegroundColor Cyan
+
     $optionIP = Read-Host "¿Deseas configurar la direccion IP por DHCP? (s/n)"
     if ($optionIP -eq "s") {
         Write-Host "Configurando direccion IP por DHCP..." -ForegroundColor Yellow
-        Invoke-Expression "netsh interface ip set address name='Ethernet' source=dhcp"
+        Invoke-Expression "netsh interface ip set address name='$adapterName' source=dhcp"
     }
     else {
         $ip = Read-Host "Ingresa la direccion IP (e.g., 192.168.1.100)"
         $subnet = Read-Host "Ingresa la mascara de subred (e.g., 255.255.255.0)"
         $gateway = Read-Host "Ingresa la puerta de enlace predeterminada (e.g., 192.168.1.1)"
         Write-Host "Configurando direccion IP estatica..." -ForegroundColor Yellow
-        Invoke-Expression "netsh interface ip set address name='Ethernet' static $ip $subnet $gateway"
+        Invoke-Expression "netsh interface ip set address name='$adapterName' static $ip $subnet $gateway"
     }
 
     $optionDNS = Read-Host "¿Deseas configurar los DNS por DHCP? (s/n)"
     if ($optionDNS -eq "s") {
         Write-Host "Configurando DNS por DHCP..." -ForegroundColor Yellow
-        Invoke-Expression "netsh interface ip set dns name='Ethernet' source=dhcp"
+        Invoke-Expression "netsh interface ip set dns name='$adapterName' source=dhcp"
     }
     else {
         $dnsOption = Read-Host "¿Deseas configurar los DNS de AdGuard? (s/n)"
@@ -67,8 +84,8 @@ function Configurar-IP {
             $dns2 = Read-Host "Ingresa el servidor DNS alternativo (e.g., 8.8.4.4)"
         }
         Write-Host "Configurando servidores DNS personalizados..." -ForegroundColor Yellow
-        Invoke-Expression "netsh interface ip set dns name='Ethernet' static $dns1"
-        Invoke-Expression "netsh interface ip add dns name='Ethernet' $dns2 index=2"
+        Invoke-Expression "netsh interface ip set dns name='$adapterName' static $dns1"
+        Invoke-Expression "netsh interface ip add dns name='$adapterName' $dns2 index=2"
     }
     Write-Host "Configuracion de red completada." -ForegroundColor Green
 }
