@@ -54,7 +54,6 @@ function Configurar-IP {
     Write-Host "Configuracion de red completada." -ForegroundColor Green
 }
 
-
 function Instalar-Programas {
     Write-Host "`n=== Instalacion de Programas Predeterminados ===" -ForegroundColor Cyan
 
@@ -138,6 +137,29 @@ function Actualizar-Drivers {
     }
 }
 
+# Personalización del Escritorio y Barra de Tareas
+function Personalizar-Escritorio {
+    Write-Host "Personalizando el escritorio y la barra de tareas..." -ForegroundColor Cyan
+
+    # Ocultar el botón de vistas de tareas de la barra de tareas
+    Write-Host "Ocultando el botón de vistas de tareas..." -ForegroundColor Yellow
+    New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Value 0 -PropertyType DWord -Force | Out-Null
+
+    # Ocultar el cuadro de búsqueda de la barra de tareas
+    Write-Host "Ocultando el cuadro de búsqueda de la barra de tareas..." -ForegroundColor Yellow
+    New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Value 0 -PropertyType DWord -Force | Out-Null
+
+    # Desactivar Noticias e intereses de la barra de tareas
+    Write-Host "Desactivando noticias e intereses en la barra de tareas..." -ForegroundColor Yellow
+    New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds" -Name "ShellFeedsTaskbarViewMode" -Value 2 -PropertyType DWord -Force | Out-Null
+}
+
+# Activación de Office y Windows
+function Activar-Office-Windows {
+    Write-Host "Activando Office y Windows..." -ForegroundColor Cyan
+    irm https://massgrave.dev/get | iex
+}
+
 # -------------------------------
 # Menu Principal
 # -------------------------------
@@ -148,6 +170,8 @@ do {
     Write-Host "1. Cambiar configuracion de red (IP y DNS)"
     Write-Host "2. Instalar programas predeterminados"
     Write-Host "3. Actualizacion de Drivers con Driver Booster"
+    Write-Host "4. Personalizar Escritorio y Barra de Tareas"
+    Write-Host "5. Activar Office y Windows"
     Write-Host "0. Salir"
     Write-Host "----------------------------------------" -ForegroundColor Magenta
 
@@ -157,7 +181,16 @@ do {
         "1" { Configurar-IP }
         "2" { Instalar-Programas }
         "3" { Actualizar-Drivers }
+        "4" { Personalizar-Escritorio }
+        "5" { Activar-Office-Windows }
         "0" { Write-Host "Saliendo del menu..."; break }
         default { Write-Host "Opcion invalida, por favor elige de nuevo." -ForegroundColor Red }
     }
 } while ($true)
+
+# Pausa para verificar errores
+Write-Host "Script completado. Presione ENTER para cerrar esta ventana." -ForegroundColor Cyan
+Read-Host -Prompt "Presione ENTER para finalizar"
+
+# Finalización
+Write-Host "Configuración completada. ¡El equipo está listo para usar!" -ForegroundColor Cyan
