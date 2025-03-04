@@ -106,6 +106,10 @@ Esta función realiza la limpieza del sistema eliminando archivos temporales y v
 - **Limpiar archivos temporales**: Elimina los archivos temporales ubicados en `C:\Windows\Temp` y en la carpeta temporal del usuario.
 - **Limpiar la papelera de reciclaje**: Vacía la papelera de reciclaje.
 
+## Aviso Legal
+
+Este script puede utilizar scripts y servicios externos que son de uso público. No tengo ninguna relación con los proveedores de estos scripts y servicios externos, y no asumo ninguna responsabilidad por su funcionamiento o disponibilidad.
+
 ## Contribuciones
 
 Las contribuciones son bienvenidas. Si deseas mejorar este script, por favor, haz un fork del repositorio y envía un pull request con tus cambios.
