@@ -40,7 +40,7 @@ Show-Banner
 function Get-ActiveNetworkAdapter {
     $adapters = Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
     foreach ($adapter in $adapters) {
-        if (Test-Connection -ComputerName google.com -InterfaceAlias $adapter.Name -Count 1 -Quiet) {
+        if (Test-Connection -ComputerName google.com -Count 1 -Quiet) {
             return $adapter.Name
         }
     }
