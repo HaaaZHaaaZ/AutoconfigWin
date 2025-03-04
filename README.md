@@ -10,7 +10,7 @@ Este script de PowerShell automatiza varias tareas de configuración y mantenimi
 
 ## Uso
 
-Para ejecutar el script, tienes dos opciones:
+Para ejecutar el script, tienes tres opciones:
 
 ### Opción 1: Ejecutar desde PowerShell
 
@@ -22,10 +22,19 @@ Para ejecutar el script, tienes dos opciones:
     .\ConfigurarEquipo.ps1
     ```
 
-### Opción 2: Ejecutar usando el archivo [ejecutador.bat](http://_vscodecontentref_/1)
+### Opción 2: Ejecutar usando el archivo 
 
-1. Abre el archivo [ejecutador.bat](http://_vscodecontentref_/2) con permisos de administrador.
+1. Abre el archivo  con permisos de administrador.
 2. El archivo `.bat` ejecutará automáticamente el script de PowerShell.
+
+### Opción 3: Ejecutar directamente desde GitHub
+
+1. Abre PowerShell con permisos de administrador.
+2. Ejecuta el siguiente comando:
+
+    ```powershell
+    iex (irm 'https://raw.githubusercontent.com/HaaaZHaaaZ/AutoconfigWin/refs/heads/master/ConfigurarEquipo.ps1')
+    ```
 
 ## Menú Principal
 
