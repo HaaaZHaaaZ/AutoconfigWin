@@ -227,11 +227,27 @@ function Activar-Office-Windows {
     Write-Host "Activando Office y Windows..." -ForegroundColor Cyan
     irm https://massgrave.dev/get | iex
 }
+# Limpieza del Sistema
+function Limpiar-Sistema {
+    Write-Host "`n=== Limpieza del Sistema ===" -ForegroundColor Cyan
+    try {
+        # Limpiar archivos temporales
+        Write-Host "Limpiando archivos temporales..." -ForegroundColor Yellow
+        Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue
 
-# -------------------------------
-# Menu Principal
-# -------------------------------
+        # Limpiar archivos de la papelera de reciclaje
+        Write-Host "Limpiando la papelera de reciclaje..." -ForegroundColor Yellow
+        Clear-RecycleBin -Force -ErrorAction SilentlyContinue
 
+        Write-Host "Limpieza del sistema completada." -ForegroundColor Green
+    }
+    catch {
+        Write-Host "Error durante la limpieza del sistema: $_" -ForegroundColor Red
+    }
+}
+
+# Agregar la nueva opción al menú principal
 do {
     Write-Host "`n----------------------------------------" -ForegroundColor Magenta
     Write-Host "Menu de Automatizacion"
@@ -241,6 +257,7 @@ do {
     Write-Host "4. Personalizar Escritorio y Barra de Tareas"
     Write-Host "5. Configurar AnyDesk"
     Write-Host "6. Activar Office y Windows"
+    Write-Host "7. Limpiar el Sistema"
     Write-Host "0. Salir"
     Write-Host "----------------------------------------" -ForegroundColor Magenta
 
@@ -253,6 +270,7 @@ do {
         "4" { Personalizar-Escritorio }
         "5" { Configurar-AnyDesk }
         "6" { Activar-Office-Windows }
+        "7" { Limpiar-Sistema }
         "0" { Write-Host "Saliendo del menu..."; break }
         default { Write-Host "Opcion invalida, por favor elige de nuevo." -ForegroundColor Red }
     }
