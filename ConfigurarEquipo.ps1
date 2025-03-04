@@ -3,6 +3,7 @@ function Test-Admin {
     $currentUser = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     if (-not $currentUser.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
         Write-Host "Este script debe ejecutarse con permisos de administrador." -ForegroundColor Red
+        Read-Host -Prompt "Presione ENTER para cerrar esta ventana"
         exit
     }
 }
