@@ -58,11 +58,18 @@ function Configurar-IP {
 function Instalar-Programas {
     Write-Host "`n=== Instalacion de Programas Predeterminados ===" -ForegroundColor Cyan
 
+    # Verificar si Chocolatey está instalado
     if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
-        Write-Host "Chocolatey no esta instalado. Instalando..." -ForegroundColor Yellow
+        Write-Host "Chocolatey no está instalado. Instalando..." -ForegroundColor Yellow
         Set-ExecutionPolicy Bypass -Scope Process -Force
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
         iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+        # Verificar nuevamente si Chocolatey se instaló correctamente
+        if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
+            Write-Host "Error: Chocolatey no se pudo instalar." -ForegroundColor Red
+            return
+        }
     }
 
     Write-Host "Instalando programas con Chocolatey..." -ForegroundColor Yellow
