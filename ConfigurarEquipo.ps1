@@ -217,7 +217,8 @@ function Configurar-AnyDesk {
         Write-Host "Contraseña de AnyDesk configurada correctamente." -ForegroundColor Green
         
         # Obtener el ID de AnyDesk en una nueva ventana de cmd
-        Start-Process cmd.exe -ArgumentList "/c @echo off && for /f 'delims=' %%i in (''C:\Program Files (x86)\AnyDesk\AnyDesk.exe' --get-id') do set CID=%%i && echo AnyDesk ID is: %CID% " -NoNewWindow
+        $cmdCommand = '@echo off && for /f "delims=" %%i in (\'"C:\Program Files (x86)\AnyDesk\AnyDesk.exe" --get-id\') do set CID=%%i && echo AnyDesk ID is: %CID% && pause'
+        Start-Process cmd.exe -ArgumentList "/c $cmdCommand" -NoNewWindow
     }
     catch {
         Write-Host "Error al configurar la contraseña de AnyDesk: $_" -ForegroundColor Red
