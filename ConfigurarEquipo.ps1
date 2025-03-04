@@ -54,6 +54,7 @@ function Configurar-IP {
     Write-Host "Configuracion de red completada." -ForegroundColor Green
 }
 
+
 function Instalar-Programas {
     Write-Host "`n=== Instalacion de Programas Predeterminados ===" -ForegroundColor Cyan
 
@@ -63,17 +64,30 @@ function Instalar-Programas {
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
         iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
     }
-    
+
     Write-Host "Instalando programas con Chocolatey..." -ForegroundColor Yellow
-	choco install vcredist-all -y
-    choco install googlechrome -y
-    choco install opera -y
-    choco install winrar -y
-    choco install anydesk.install -y
-    choco install notepadplusplus -y
-    choco install office365business -y
-    choco install adobereader -y
- 
+
+    $programas = @(
+        "vcredist-all",
+        "googlechrome",
+        "opera",
+        "winrar",
+        "anydesk.install",
+        "notepadplusplus",
+        "office365business",
+        "adobereader"
+    )
+
+    foreach ($programa in $programas) {
+        Write-Host "Instalando $programa..." -ForegroundColor Yellow
+        choco install $programa -y
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "Error al instalar $programa" -ForegroundColor Red
+        } else {
+            Write-Host "$programa instalado correctamente." -ForegroundColor Green
+        }
+    }
+
     Write-Host "Instalacion de programas completada." -ForegroundColor Green
 }
 
