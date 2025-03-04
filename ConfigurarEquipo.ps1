@@ -198,7 +198,7 @@ do {
         "0" { Write-Host "Saliendo del menu..."; break }
         default { Write-Host "Opcion invalida, por favor elige de nuevo." -ForegroundColor Red }
     }
-} while ($true)
+} while ($option -ne "0")
 
 # Pausa para verificar errores
 Write-Host "Script completado. Presione ENTER para cerrar esta ventana." -ForegroundColor Cyan
