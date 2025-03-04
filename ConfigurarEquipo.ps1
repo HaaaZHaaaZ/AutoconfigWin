@@ -58,8 +58,14 @@ function Configurar-IP {
         Invoke-Expression "netsh interface ip set dns name='Ethernet' source=dhcp"
     }
     else {
-        $dns1 = Read-Host "Ingresa el servidor DNS preferido (e.g., 8.8.8.8)"
-        $dns2 = Read-Host "Ingresa el servidor DNS alternativo (e.g., 8.8.4.4)"
+        $dnsOption = Read-Host "¿Deseas configurar los DNS de AdGuard? (s/n)"
+        if ($dnsOption -eq "s") {
+            $dns1 = "94.140.14.14"
+            $dns2 = "94.140.15.15"
+        } else {
+            $dns1 = Read-Host "Ingresa el servidor DNS preferido (e.g., 8.8.8.8)"
+            $dns2 = Read-Host "Ingresa el servidor DNS alternativo (e.g., 8.8.4.4)"
+        }
         Write-Host "Configurando servidores DNS personalizados..." -ForegroundColor Yellow
         Invoke-Expression "netsh interface ip set dns name='Ethernet' static $dns1"
         Invoke-Expression "netsh interface ip add dns name='Ethernet' $dns2 index=2"
@@ -182,6 +188,21 @@ function Personalizar-Escritorio {
     }
 }
 
+# Configuración de AnyDesk
+function Configurar-AnyDesk {
+    Write-Host "Configurando AnyDesk..." -ForegroundColor Cyan
+    try {
+        & "C:\Program Files (x86)\AnyDesk\AnyDesk.exe" --set-password --password Soporte2025
+        Write-Host "Contraseña de AnyDesk configurada correctamente." -ForegroundColor Green
+        $anydeskID = & "C:\Program Files (x86)\AnyDesk\AnyDesk.exe" --get-id
+        Write-Host "ID de AnyDesk: $anydeskID" -ForegroundColor Cyan
+        Write-Host "Contraseña de AnyDesk: Soporte2025" -ForegroundColor Cyan
+    }
+    catch {
+        Write-Host "Error al configurar la contraseña de AnyDesk: $_" -ForegroundColor Red
+    }
+}
+
 # Activación de Office y Windows
 function Activar-Office-Windows {
     Write-Host "Activando Office y Windows..." -ForegroundColor Cyan
@@ -199,7 +220,8 @@ do {
     Write-Host "2. Instalar programas predeterminados"
     Write-Host "3. Actualizacion de Drivers con Driver Booster"
     Write-Host "4. Personalizar Escritorio y Barra de Tareas"
-    Write-Host "5. Activar Office y Windows"
+    Write-Host "5. Configurar AnyDesk"
+    Write-Host "6. Activar Office y Windows"
     Write-Host "0. Salir"
     Write-Host "----------------------------------------" -ForegroundColor Magenta
 
@@ -210,7 +232,8 @@ do {
         "2" { Instalar-Programas }
         "3" { Actualizar-Drivers }
         "4" { Personalizar-Escritorio }
-        "5" { Activar-Office-Windows }
+        "5" { Configurar-AnyDesk }
+        "6" { Activar-Office-Windows }
         "0" { Write-Host "Saliendo del menu..."; break }
         default { Write-Host "Opcion invalida, por favor elige de nuevo." -ForegroundColor Red }
     }
