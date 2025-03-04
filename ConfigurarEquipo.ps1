@@ -216,6 +216,7 @@ function Configurar-AnyDesk {
         echo $password | & "C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --set-password
         Write-Host "Contraseña de AnyDesk configurada correctamente." -ForegroundColor Green
         
+        ##configurar el ID de AnyDesk
         # Obtener el ID de AnyDesk
         $anydeskID = cmd.exe /c 'for /f "delims=" %i in ('"C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --get-id') do @echo %i'
         $anydeskID = $anydeskID -replace "`r`n", ""
