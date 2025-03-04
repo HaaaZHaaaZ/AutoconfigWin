@@ -40,8 +40,11 @@ Show-Banner
 function Get-ActiveNetworkAdapter {
     $adapters = Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
     foreach ($adapter in $adapters) {
-        if (Test-Connection -ComputerName google.com -Count 1 -Quiet) {
-            return $adapter.Name
+        $ipAddresses = (Get-NetIPAddress -InterfaceAlias $adapter.Name -AddressFamily IPv4).IPAddress
+        foreach ($ip in $ipAddresses) {
+            if (Test-Connection -ComputerName google.com -Count 1 -Quiet) {
+                return $adapter.Name
+            }
         }
     }
     return $null
@@ -209,7 +212,7 @@ function Personalizar-Escritorio {
 function Configurar-AnyDesk {
     Write-Host "Configurando AnyDesk..." -ForegroundColor Cyan
     try {
-        & "C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --set-password --password Soporte2025
+        & "C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --set-password Soporte2025
         Write-Host "Contraseña de AnyDesk configurada correctamente." -ForegroundColor Green
         $anydeskID = & "C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --get-id
         Write-Host "ID de AnyDesk: $anydeskID" -ForegroundColor Cyan
