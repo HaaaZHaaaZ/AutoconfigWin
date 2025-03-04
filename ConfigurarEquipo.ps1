@@ -96,3 +96,129 @@ function Instalar-Programas {
     $programas = @(
         "vcredist-all",
         "googlechrome",
+        "opera",
+        "winrar",
+        "anydesk.install",
+        "notepadplusplus",
+        "office365business",
+        "adobereader"
+    )
+
+    foreach ($programa in $programas) {
+        Write-Host "Instalando $programa..." -ForegroundColor Yellow
+        choco install $programa -y
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "Error al instalar $programa" -ForegroundColor Red
+        } else {
+            Write-Host "$programa instalado correctamente." -ForegroundColor Green
+        }
+    }
+
+    Write-Host "Instalacion de programas completada." -ForegroundColor Green
+}
+
+function Actualizar-Drivers {
+    Write-Host "`n=== Actualizacion de Drivers con Driver Booster ===" -ForegroundColor Cyan
+    
+    # Verificar si Driver Booster está instalado
+    if (-not (Get-Command "C:\Program Files (x86)\IObit\Driver Booster\DriverBooster.exe" -ErrorAction SilentlyContinue)) {
+        Write-Host "Driver Booster no está instalado. Descargando e instalando..." -ForegroundColor Yellow
+        
+        # URL de descarga (ajusta la URL si es necesario)
+        $url = "https://cdn.iobit.com/dl/driver_booster_setup.exe"
+        $installerPath = Join-Path $PSScriptRoot "driver_booster_setup.exe"
+        
+        try {
+            Invoke-WebRequest -Uri $url -OutFile $installerPath -UseBasicParsing
+            Write-Host "Descarga completada. Instalando Driver Booster..." -ForegroundColor Yellow
+            Start-Process -FilePath $installerPath -ArgumentList "/silent" -Wait
+            Remove-Item $installerPath
+        }
+        catch {
+            Write-Host "Error al descargar o instalar Driver Booster: $_" -ForegroundColor Red
+            return
+        }
+    }
+    
+    Write-Host "Iniciando Driver Booster..." -ForegroundColor Yellow
+    try {
+        Start-Process -FilePath "C:\Program Files (x86)\IObit\Driver Booster\DriverBooster.exe" -ArgumentList "/scan /update /silent" -Wait
+        Write-Host "Actualización de drivers completada." -ForegroundColor Green
+    }
+    catch {
+        Write-Host "Error al ejecutar Driver Booster: $_" -ForegroundColor Red
+    }
+}
+
+# Personalización del Escritorio y Barra de Tareas
+function Personalizar-Escritorio {
+    Write-Host "Personalizando el escritorio y la barra de tareas..." -ForegroundColor Cyan
+
+    # Ocultar el botón de vistas de tareas de la barra de tareas
+    Write-Host "Ocultando el botón de vistas de tareas..." -ForegroundColor Yellow
+    try {
+        New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Value 0 -PropertyType DWord -Force | Out-Null
+    }
+    catch {
+        Write-Host "Error al ocultar el botón de vistas de tareas: $_" -ForegroundColor Red
+    }
+
+    # Ocultar el cuadro de búsqueda de la barra de tareas
+    Write-Host "Ocultando el cuadro de búsqueda de la barra de tareas..." -ForegroundColor Yellow
+    try {
+        New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Value 0 -PropertyType DWord -Force | Out-Null
+    }
+    catch {
+        Write-Host "Error al ocultar el cuadro de búsqueda de la barra de tareas: $_" -ForegroundColor Red
+    }
+
+    # Desactivar Noticias e intereses de la barra de tareas
+    Write-Host "Desactivando noticias e intereses en la barra de tareas..." -ForegroundColor Yellow
+    try {
+        New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds" -Name "ShellFeedsTaskbarViewMode" -Value 2 -PropertyType DWord -Force | Out-Null
+    }
+    catch {
+        Write-Host "Error al desactivar noticias e intereses en la barra de tareas: $_" -ForegroundColor Red
+    }
+}
+
+# Activación de Office y Windows
+function Activar-Office-Windows {
+    Write-Host "Activando Office y Windows..." -ForegroundColor Cyan
+    irm https://massgrave.dev/get | iex
+}
+
+# -------------------------------
+# Menu Principal
+# -------------------------------
+
+do {
+    Write-Host "`n----------------------------------------" -ForegroundColor Magenta
+    Write-Host "Menu de Automatizacion"
+    Write-Host "1. Cambiar configuracion de red (IP y DNS)"
+    Write-Host "2. Instalar programas predeterminados"
+    Write-Host "3. Actualizacion de Drivers con Driver Booster"
+    Write-Host "4. Personalizar Escritorio y Barra de Tareas"
+    Write-Host "5. Activar Office y Windows"
+    Write-Host "0. Salir"
+    Write-Host "----------------------------------------" -ForegroundColor Magenta
+
+    $option = Read-Host "Selecciona una opcion"
+    
+    switch ($option) {
+        "1" { Configurar-IP }
+        "2" { Instalar-Programas }
+        "3" { Actualizar-Drivers }
+        "4" { Personalizar-Escritorio }
+        "5" { Activar-Office-Windows }
+        "0" { Write-Host "Saliendo del menu..."; break }
+        default { Write-Host "Opcion invalida, por favor elige de nuevo." -ForegroundColor Red }
+    }
+} while ($option -ne "0")
+
+# Pausa para verificar errores
+Write-Host "Script completado. Presione ENTER para cerrar esta ventana." -ForegroundColor Cyan
+Read-Host -Prompt "Presione ENTER para finalizar"
+
+# Finalización
+Write-Host "Configuración completada. ¡El equipo está listo para usar!" -ForegroundColor Cyan
