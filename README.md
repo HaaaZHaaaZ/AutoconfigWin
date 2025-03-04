@@ -1,12 +1,15 @@
 # Autoconfig Script
 
-Este script de PowerShell automatiza varias tareas de configuración y mantenimiento en un equipo con Windows. Incluye opciones para configurar la red, instalar programas predeterminados y actualizar drivers.
+Este script de PowerShell automatiza varias tareas de configuración y mantenimiento en un equipo con Windows. Incluye opciones para configurar la red, instalar programas predeterminados, actualizar drivers, limpiar el sistema y personalizar el escritorio.
 
 ## Funcionalidades
 
 1. **Cambiar configuración de red (IP y DNS)**
 2. **Instalar programas predeterminados**
 3. **Actualizar drivers con Driver Booster**
+4. **Personalizar Escritorio y Barra de Tareas**
+5. **Configurar AnyDesk**
+6. **Limpiar el Sistema**
 
 ## Uso
 
@@ -22,9 +25,9 @@ Para ejecutar el script, tienes tres opciones:
     .\ConfigurarEquipo.ps1
     ```
 
-### Opción 2: Ejecutar usando el archivo 
+### Opción 2: Ejecutar usando el archivo `.bat`
 
-1. Abre el archivo  con permisos de administrador.
+1. Abre el archivo `.bat` con permisos de administrador.
 2. El archivo `.bat` ejecutará automáticamente el script de PowerShell.
 
 ### Opción 3: Ejecutar directamente desde GitHub
@@ -43,7 +46,10 @@ El script presenta un menú con las siguientes opciones:
 1. **Cambiar configuración de red (IP y DNS)**: Permite configurar la dirección IP y los servidores DNS, ya sea de forma automática (DHCP) o manual.
 2. **Instalar programas predeterminados**: Instala una lista de programas predeterminados utilizando Chocolatey.
 3. **Actualizar drivers con Driver Booster**: Verifica si Driver Booster está instalado, lo descarga e instala si es necesario, y luego actualiza los drivers del sistema.
-4. **Salir**: Cierra el menú y termina la ejecución del script.
+4. **Personalizar Escritorio y Barra de Tareas**: Personaliza el escritorio y la barra de tareas ocultando el botón de vistas de tareas, el cuadro de búsqueda y desactivando noticias e intereses.
+5. **Configurar AnyDesk**: Configura la contraseña de AnyDesk.
+6. **Limpiar el Sistema**: Limpia archivos temporales y la papelera de reciclaje.
+0. **Salir**: Cierra el menú y termina la ejecución del script.
 
 ## Requisitos
 
@@ -54,7 +60,7 @@ El script presenta un menú con las siguientes opciones:
 
 ### Configurar-IP
 
-Configura la dirección IP y los servidores DNS de la interfaz de red `Ethernet`.
+Esta función permite configurar la dirección IP y los servidores DNS de la interfaz de red `Ethernet`. Puedes elegir entre configurar la IP y DNS de forma automática (DHCP) o manual. En el caso de configuración manual, se te pedirá que ingreses la dirección IP, la máscara de subred, la puerta de enlace predeterminada y los servidores DNS.
 
 ### Instalar-Programas
 
@@ -72,6 +78,25 @@ Instala los siguientes programas utilizando Chocolatey:
 ### Actualizar-Drivers
 
 Utiliza Driver Booster para actualizar los drivers del sistema. Si Driver Booster no está instalado, el script lo descarga e instala automáticamente.
+
+### Personalizar-Escritorio
+
+Esta función personaliza el escritorio y la barra de tareas realizando las siguientes acciones:
+
+- **Ocultar el botón de vistas de tareas**: Oculta el botón de vistas de tareas de la barra de tareas.
+- **Ocultar el cuadro de búsqueda**: Oculta el cuadro de búsqueda de la barra de tareas.
+- **Desactivar noticias e intereses**: Desactiva la función de noticias e intereses en la barra de tareas.
+
+### Configurar-AnyDesk
+
+Configura la contraseña de AnyDesk para el acceso remoto.
+
+### Limpiar-Sistema
+
+Esta función realiza la limpieza del sistema eliminando archivos temporales y vaciando la papelera de reciclaje:
+
+- **Limpiar archivos temporales**: Elimina los archivos temporales ubicados en `C:\Windows\Temp` y en la carpeta temporal del usuario.
+- **Limpiar la papelera de reciclaje**: Vacía la papelera de reciclaje.
 
 ## Contribuciones
 
