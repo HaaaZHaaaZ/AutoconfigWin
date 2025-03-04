@@ -218,6 +218,7 @@ function Configurar-AnyDesk {
         
         # Obtener el ID de AnyDesk
         $anydeskID = cmd.exe /c 'for /f "delims=" %i in ('"C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --get-id') do @echo %i'
+        $anydeskID = $anydeskID -replace "`r`n", ""
         Write-Host "ID de AnyDesk: $anydeskID" -ForegroundColor Cyan
         Write-Host "Contraseña de AnyDesk: Soporte2025" -ForegroundColor Cyan
     }
