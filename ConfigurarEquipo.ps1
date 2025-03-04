@@ -40,11 +40,8 @@ Show-Banner
 function Get-ActiveNetworkAdapter {
     $adapters = Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
     foreach ($adapter in $adapters) {
-        $ipAddresses = (Get-NetIPAddress -InterfaceAlias $adapter.Name -AddressFamily IPv4).IPAddress
-        foreach ($ip in $ipAddresses) {
-            if (Test-Connection -ComputerName google.com -Source $ip -Count 1 -Quiet) {
-                return $adapter.Name
-            }
+        if (Test-Connection -ComputerName google.com -Count 1 -Quiet) {
+            return $adapter.Name
         }
     }
     return $null
