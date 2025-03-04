@@ -62,6 +62,14 @@ El script presenta un menú con las siguientes opciones:
 
 Esta función permite configurar la dirección IP y los servidores DNS de la interfaz de red `Ethernet`. Puedes elegir entre configurar la IP y DNS de forma automática (DHCP) o manual. En el caso de configuración manual, se te pedirá que ingreses la dirección IP, la máscara de subred, la puerta de enlace predeterminada y los servidores DNS.
 
+#### Configuración de DNS
+
+- **DNS por DHCP**: Configura los servidores DNS automáticamente utilizando DHCP.
+- **DNS de AdGuard**: Configura los servidores DNS de AdGuard para evitar la publicidad. Los servidores DNS de AdGuard son:
+  - DNS preferido: `94.140.14.14`
+  - DNS alternativo: `94.140.15.15`
+- **DNS personalizados**: Permite ingresar manualmente los servidores DNS preferido y alternativo.
+
 ### Instalar-Programas
 
 Instala los siguientes programas utilizando Chocolatey:
