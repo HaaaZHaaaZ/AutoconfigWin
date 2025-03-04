@@ -209,7 +209,7 @@ function Personalizar-Escritorio {
 function Configurar-AnyDesk {
     Write-Host "Configurando AnyDesk..." -ForegroundColor Cyan
     try {
-        & "C:\Program Files (x86)\AnyDeskMSI\AnyDesk.exe" --set-password --password Soporte2025
+        & "C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --set-password --password Soporte2025
         Write-Host "Contraseña de AnyDesk configurada correctamente." -ForegroundColor Green
         $anydeskID = & "C:\Program Files (x86)\AnyDeskMSI\AnyDeskMSI.exe" --get-id
         Write-Host "ID de AnyDesk: $anydeskID" -ForegroundColor Cyan
