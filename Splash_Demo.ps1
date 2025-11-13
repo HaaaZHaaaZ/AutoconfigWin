@@ -16,53 +16,56 @@ catch {
 function Show-SplashScreen {
     Clear-Host
     
-    # ASCII Art del splash screen
-    $splash = @(
-        "",
-        "   ========================================================================",
-        "   |                                                                      |",
-        "   |     AUTOCONFIG - WINDOWS SYSTEM AUTOMATION TOOL v1.0                |",
-        "   |                                                                      |",
-        "   |                 Asistida por: GitHub Copilot (IA)                   |",
-        "   |                                                                      |",
-        "   ========================================================================",
-        ""
-    )
+    Write-Host ""
     
-    # Mostrar splash con animacion
-    foreach ($line in $splash) {
-        Write-Host $line -ForegroundColor Cyan
-        Start-Sleep -Milliseconds 50
-    }
-    
-    # Linea de inicio con animacion de puntos
+    # Banner personalizado "HaZ with IA" - GRANDE
     Write-Host "   " -NoNewline
-    Write-Host "[" -ForegroundColor White -NoNewline
-    for ($i = 0; $i -lt 3; $i++) {
-        Write-Host "o" -ForegroundColor DarkGreen -NoNewline
-        Start-Sleep -Milliseconds 300
+    foreach ($c in "H") { Write-Host $c -ForegroundColor Yellow -NoNewline; Start-Sleep -Milliseconds 80 }
+    foreach ($c in "a") { Write-Host $c -ForegroundColor Yellow -NoNewline; Start-Sleep -Milliseconds 80 }
+    foreach ($c in "Z") { Write-Host $c -ForegroundColor Yellow -NoNewline; Start-Sleep -Milliseconds 80 }
+    Write-Host " " -NoNewline
+    foreach ($c in "with") { 
+        Write-Host $c[0] -ForegroundColor Cyan -NoNewline
+        Start-Sleep -Milliseconds 60
     }
-    Write-Host "]" -ForegroundColor White
+    Write-Host " " -NoNewline
+    foreach ($c in "I") { Write-Host $c -ForegroundColor Magenta -NoNewline; Start-Sleep -Milliseconds 80 }
+    foreach ($c in "A") { Write-Host $c -ForegroundColor Magenta -NoNewline; Start-Sleep -Milliseconds 80 }
+    Write-Host ""
+    Write-Host ""
     
-    # Texto de inicializacion
-    $initLines = @(
-        "   [+] Verificando permisos administrativos...",
-        "   [+] Analizando configuracion del sistema...",
-        "   [+] Preparando herramientas...",
-        "   [+] Listo para ejecutar operaciones."
+    # Logo AUTOCONFIG animado
+    $autoLogo = @(
+        "        #    #  #  #  #####  ####  #   #  #     #####   ####",
+        "        #    #  #  #    #    #     #   # #      #      #",
+        "        #    #  ####    #    ####  ### #  #     ####    ####",
+        "        #    #  #  #    #    #     # ##  #      #           #",
+        "        ####  #  #      #    ####  #  #  ####   ####     ####"
     )
     
-    foreach ($line in $initLines) {
-        foreach ($c in $line.ToCharArray()) {
-            Write-Host -NoNewline $c -ForegroundColor Green
-            Start-Sleep -Milliseconds (Get-Random -Minimum 5 -Maximum 20)
-        }
-        Write-Host ""
-        Start-Sleep -Milliseconds 200
+    foreach ($line in $autoLogo) {
+        Write-Host "   $line" -ForegroundColor Cyan
+        Start-Sleep -Milliseconds 80
     }
     
     Write-Host ""
-    Write-Host "   Presiona ENTER para continuar..." -ForegroundColor Yellow
+    
+    # Linea inferior con animacion
+    Write-Host "   " -NoNewline
+    for ($i = 0; $i -lt 10; $i++) {
+        Write-Host "-=" -ForegroundColor Green -NoNewline
+        Start-Sleep -Milliseconds 40
+    }
+    Write-Host ""
+    
+    Write-Host ""
+    
+    # Version y creditos simples
+    Write-Host "   WINDOWS SYSTEM AUTOMATION TOOL v1.0" -ForegroundColor Cyan
+    Write-Host "   By: HaZ with GitHub Copilot (IA)" -ForegroundColor Green
+    
+    Write-Host ""
+    Write-Host "   > Presiona ENTER para continuar..." -ForegroundColor Yellow
     Read-Host | Out-Null
     Clear-Host
 }
