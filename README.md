@@ -1,119 +1,212 @@
-# Autoconfig Script
+# 🖥️ AutoconfigWin - Script de Automatización para Windows
 
-Este script de PowerShell automatiza varias tareas de configuración y mantenimiento en un equipo con Windows. Incluye opciones para configurar la red, instalar programas predeterminados, actualizar drivers, limpiar el sistema y personalizar el escritorio.
+> Script PowerShell que automatiza configuración de Windows con efectos visuales tipo "hacker"
 
-## Funcionalidades
+![PowerShell](https://img.shields.io/badge/PowerShell-5.0+-blue?style=flat-square&logo=powershell)
+![Windows](https://img.shields.io/badge/Windows-10%2F11-0078D4?style=flat-square&logo=windows)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-1. **Cambiar configuración de red (IP y DNS)**
-2. **Instalar programas predeterminados**
-3. **Actualizar drivers con Driver Booster**
-4. **Personalizar Escritorio y Barra de Tareas**
-5. **Configurar AnyDesk**
-6. **Limpiar el Sistema**
+---
 
-## Uso
+## ¿Qué hace este script?
 
-Para ejecutar el script, tienes tres opciones:
+`ConfigurarEquipo.ps1` es una herramienta de automatización que permite configurar una PC con Windows de forma rápida y visual. Incluye las siguientes funcionalidades:
 
-### Opción 1: Ejecutar desde PowerShell
+1. **Configurar Red (IP y DNS)** - Establece dirección IP y servidores DNS
+2. **Instalar Programas** - Instala automáticamente una lista de programas via Chocolatey
+3. **Actualizar Drivers** - Descarga e instala Driver Booster para actualizar drivers
+4. **Personalizar Escritorio** - Oculta elementos innecesarios de Windows
+5. **Configurar AnyDesk** - Configura acceso remoto
+6. **Activar Office/Windows** - Herramientas de activación
+7. **Limpiar Sistema** - Elimina archivos temporales y libera espacio
 
-1. Abre PowerShell con permisos de administrador.
-2. Navega al directorio donde se encuentra el script.
-3. Ejecuta el script con el siguiente comando:
+---
 
-    ```powershell
-    .\ConfigurarEquipo.ps1
-    ```
+## ✨ Características Visuales
 
-### Opción 2: Ejecutar usando el archivo `.bat`
+El script incluye **efectos visuales tipo "hacker"**:
+- 🖥️ Pantalla maximizada automáticamente
+- 🎬 Animación de inicio con efecto máquina de escribir (verde)
+- 📊 Barra de estado persistente en tiempo real
+- 🎨 Logs codificados por color (INFO, SUCCESS, WARNING, ERROR)
 
-1. Abre el archivo `.bat` con permisos de administrador.
-2. El archivo `.bat` ejecutará automáticamente el script de PowerShell.
+---
 
-### Opción 3: Ejecutar directamente desde GitHub
+## 🚀 Cómo Usar
 
-1. Abre PowerShell con permisos de administrador.
-2. Ejecuta el siguiente comando:
+### Opción 1: Launcher Fácil (Recomendado)
+```bash
+# Haz doble clic en:
+Ejecutar_Script.bat
+```
 
-    ```powershell
-    iex (irm 'https://raw.githubusercontent.com/HaaaZHaaaZ/AutoconfigWin/refs/heads/master/ConfigurarEquipo.ps1')
-    ```
+### Opción 2: PowerShell como Administrador
+```powershell
+powershell -ExecutionPolicy Bypass -File "ConfigurarEquipo.ps1"
+```
 
-## Menú Principal
+### Opción 3: Ver Demo (Sin modificar sistema)
+```powershell
+# Para ver los efectos visuales sin hacer cambios:
+powershell -ExecutionPolicy Bypass -File "Demo_Visual.ps1"
+```
 
-El script presenta un menú con las siguientes opciones:
+---
 
-1. **Cambiar configuración de red (IP y DNS)**: Permite configurar la dirección IP y los servidores DNS, ya sea de forma automática (DHCP) o manual.
-2. **Instalar programas predeterminados**: Instala una lista de programas predeterminados utilizando Chocolatey.
-3. **Actualizar drivers con Driver Booster**: Verifica si Driver Booster está instalado, lo descarga e instala si es necesario, y luego actualiza los drivers del sistema.
-4. **Personalizar Escritorio y Barra de Tareas**: Personaliza el escritorio y la barra de tareas ocultando el botón de vistas de tareas, el cuadro de búsqueda y desactivando noticias e intereses.
-5. **Configurar AnyDesk**: Configura la contraseña de AnyDesk.
-6. **Limpiar el Sistema**: Limpia archivos temporales y la papelera de reciclaje.
-0. **Salir**: Cierra el menú y termina la ejecución del script.
+## ⚙️ Requisitos
 
-## Requisitos
+- **Windows 10 o 11**
+- **PowerShell 5.0+** (incluido en Windows)
+- **Permisos de Administrador**
+- **Conexión a Internet** (para instalar programas)
 
-- PowerShell 5.1 o superior
-- Conexión a Internet para descargar programas y actualizaciones
+---
 
-## Detalles de las Funciones
+## � Menú Principal
 
-### Configurar-IP
+Al ejecutar el script, aparecerá un menú interactivo:
 
-Esta función permite configurar la dirección IP y los servidores DNS de la interfaz de red `Ethernet`. Puedes elegir entre configurar la IP y DNS de forma automática (DHCP) o manual. En el caso de configuración manual, se te pedirá que ingreses la dirección IP, la máscara de subred, la puerta de enlace predeterminada y los servidores DNS.
+```
+========== MENU DE AUTOMATIZACION ==========
 
-#### Configuración de DNS
+1. Cambiar configuracion de red (IP y DNS)
+2. Instalar programas predeterminados
+3. Actualizacion de Drivers
+4. Personalizar Escritorio y Barra de Tareas
+5. Configurar AnyDesk
+6. Activar Office y Windows
+7. Limpiar Sistema
+0. Salir
 
-- **DNS por DHCP**: Configura los servidores DNS automáticamente utilizando DHCP.
-- **DNS de AdGuard**: Configura los servidores DNS de AdGuard para evitar la publicidad. Los servidores DNS de AdGuard son:
-  - DNS preferido: `94.140.14.14`
-  - DNS alternativo: `94.140.15.15`
-- **DNS personalizados**: Permite ingresar manualmente los servidores DNS preferido y alternativo.
+Selecciona una opcion: █
+```
 
-### Instalar-Programas
+---
 
-Instala los siguientes programas utilizando Chocolatey:
+## 🎨 Opciones Disponibles
 
-- Visual C++ Redistributable
+### 1️⃣ Configurar Red (IP y DNS)
+- **DHCP automático** - Obtiene IP automáticamente
+- **IP estática** - Configura IP manual
+- **DNS personalizados** - AdGuard, Google o personalizados
+
+### 2️⃣ Instalar Programas
+Instala automáticamente:
 - Google Chrome
 - Opera
 - WinRAR
 - AnyDesk
 - Notepad++
-- Office 365 Business
+- Visual C++ Redistributable
+- Office 365
 - Adobe Reader
 
-### Actualizar-Drivers
+### 3️⃣ Actualizar Drivers
+- Descarga e instala Driver Booster
+- Actualiza automáticamente todos los drivers
 
-Utiliza Driver Booster para actualizar los drivers del sistema. Si Driver Booster no está instalado, el script lo descarga e instala automáticamente.
+### 4️⃣ Personalizar Escritorio
+- Oculta botón de Vistas de Tareas
+- Oculta cuadro de búsqueda
+- Desactiva noticias e intereses
 
-### Personalizar-Escritorio
+### 5️⃣ Configurar AnyDesk
+- Configura contraseña de acceso remoto
 
-Esta función personaliza el escritorio y la barra de tareas realizando las siguientes acciones:
+### 6️⃣ Activar Office/Windows
+- Herramientas para activación
 
-- **Ocultar el botón de vistas de tareas**: Oculta el botón de vistas de tareas de la barra de tareas.
-- **Ocultar el cuadro de búsqueda**: Oculta el cuadro de búsqueda de la barra de tareas.
-- **Desactivar noticias e intereses**: Desactiva la función de noticias e intereses en la barra de tareas.
+### 7️⃣ Limpiar Sistema
+- Elimina archivos temporales
+- Vacía papelera de reciclaje
+- Libera espacio en disco
 
-### Configurar-AnyDesk
+---
 
-Configura la contraseña de AnyDesk para el acceso remoto.
+## 📊 Colores en la Consola
 
-### Limpiar-Sistema
+| Color | Significa |
+|-------|-----------|
+| 🟢 Verde | ✅ Éxito / Completado |
+| ⚪ Blanco | ℹ️ Información |
+| 🟡 Amarillo | ⚠️ Advertencia |
+| 🔴 Rojo | ❌ Error |
 
-Esta función realiza la limpieza del sistema eliminando archivos temporales y vaciando la papelera de reciclaje:
+---
 
-- **Limpiar archivos temporales**: Elimina los archivos temporales ubicados en `C:\Windows\Temp` y en la carpeta temporal del usuario.
-- **Limpiar la papelera de reciclaje**: Vacía la papelera de reciclaje.
+## 🐛 Solución de Problemas
 
-## Aviso Legal
+### "Acceso denegado"
+```
+→ Ejecuta PowerShell como Administrador
+```
 
-Este script puede utilizar scripts y servicios externos que son de uso público. No tengo ninguna relación con los proveedores de estos scripts y servicios externos, y no asumo ninguna responsabilidad por su funcionamiento o disponibilidad.
+### "El script no se ejecuta"
+```
+→ Ejecuta en PowerShell:
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+```
 
-## Contribuciones
+### "Los visuales no aparecen"
+```
+→ Normal en algunos terminales. El script funciona igual.
+```
 
-Las contribuciones son bienvenidas. Si deseas mejorar este script, por favor, haz un fork del repositorio y envía un pull request con tus cambios.
+### "Error de Chocolatey"
+```
+→ Instala Chocolatey manualmente:
+  iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
 
-## Licencia
+---
 
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para obtener más detalles.
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la **Licencia MIT** - ver el archivo [LICENSE](LICENSE) para más detalles.
+
+```
+MIT License
+
+Copyright (c) 2025 HaaaZHaaaZ
+
+Permiso para usar, copiar, modificar, fusionar, publicar, distribuir, 
+sublicenciar, y/o vender copias del Software.
+```
+
+---
+
+## 🙏 Créditos
+
+- **Autor**: HaaaZHaaaZ
+- **Año**: 2025
+- **Versión**: 2.1
+- **Estado**: ✅ Listo para Producción
+
+---
+
+## 🎯 Roadmap Futuro
+
+- [ ] Interfaz gráfica (GUI)
+- [ ] Actualización automática
+- [ ] Soporte para Linux/Mac
+- [ ] Configuración por archivo JSON
+- [ ] Logs persistentes
+- [ ] Sistema de plugins
+
+---
+
+**⭐ Si te fue útil, por favor dale una estrella en GitHub ⭐**
+
+---
+
+## 📁 Archivos Incluidos
+
+```
+AutoconfigWin/
+├── ConfigurarEquipo.ps1      ← Script principal
+├── Demo_Visual.ps1           ← Demo sin admin
+├── Ejecutar_Script.bat       ← Launcher
+├── README.md                 ← Este archivo
+├── GUIA_RAPIDA.txt          ← Referencia rápida
+└── LICENSE                   ← MIT License
+```
