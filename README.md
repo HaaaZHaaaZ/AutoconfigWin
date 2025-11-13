@@ -119,7 +119,6 @@ Instala automáticamente:
 ### 5️⃣ Configurar AnyDesk
 - Configura contraseña de acceso remoto
 
-### 6️⃣ Activar Office/Windows
 - Herramientas para activación
 
 ### 7️⃣ Limpiar Sistema
@@ -184,34 +183,31 @@ sublicenciar, y/o vender copias del Software.
 ## 🙏 Créditos
 
 - **Autor**: HaaaZHaaaZ
-- **Año**: 2025
 - **Versión**: 2.1
-- **Estado**: ✅ Listo para Producción
+- **Última actualización**: 13 de noviembre de 2025
+- **Desarrollado con asistencia de**: GitHub Copilot (IA)
 
 ---
 
 ## 🎯 Roadmap Futuro
 
-- [ ] Interfaz gráfica (GUI)
-- [ ] Actualización automática
-- [ ] Soporte para Linux/Mac
-- [ ] Configuración por archivo JSON
-- [ ] Logs persistentes
-- [ ] Sistema de plugins
-
----
-
-## 📁 Archivos Incluidos
-
-```
 AutoconfigWin/
 ├── ConfigurarEquipo.ps1      ← Script principal
 ├── Demo_Visual.ps1           ← Demo sin admin
 ├── Ejecutar_Script.bat       ← Launcher
 ├── README.md                 ← Este archivo
 ├── GUIA_RAPIDA.txt          ← Referencia rápida
-└── LICENSE                   ← MIT License
+├── LICENSE                   ← MIT License
+└── SDI/                      ← Herramientas opcionales (drivers)
+    ├── SDI_auto.bat
+    ├── SDI_R2408.exe
+    ├── SDI_x64_R2408.exe
+    ├── drivers/              ← Drivers adicionales
+    ├── indexes/              ← Datos de indexación
+    └── tools/                ← Herramientas auxiliares
 ```
+
+**Nota**: La carpeta SDI contiene herramientas opcionales para actualización de drivers. El script principal maneja todo automáticamente.
 
 ---
 
