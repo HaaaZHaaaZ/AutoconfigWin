@@ -51,6 +51,12 @@ powershell -ExecutionPolicy Bypass -File "ConfigurarEquipo.ps1"
 powershell -ExecutionPolicy Bypass -File "Demo_Visual.ps1"
 ```
 
+### Opción 4: Ejecutar Directamente desde GitHub
+```powershell
+# Descarga y ejecuta el script desde GitHub directamente:
+iex (irm 'https://raw.githubusercontent.com/HaaaZHaaaZ/AutoconfigWin/refs/heads/master/ConfigurarEquipo.ps1')
+```
+
 ---
 
 ## ⚙️ Requisitos
@@ -195,10 +201,6 @@ sublicenciar, y/o vender copias del Software.
 
 ---
 
-**⭐ Si te fue útil, por favor dale una estrella en GitHub ⭐**
-
----
-
 ## 📁 Archivos Incluidos
 
 ```
@@ -210,3 +212,7 @@ AutoconfigWin/
 ├── GUIA_RAPIDA.txt          ← Referencia rápida
 └── LICENSE                   ← MIT License
 ```
+
+---
+
+**¿Listo para automatizar tu Windows? Ejecuta `Ejecutar_Script.bat` 🚀**
