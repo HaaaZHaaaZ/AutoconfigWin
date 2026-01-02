@@ -11,163 +11,39 @@ function Test-Admin {
 # Ejecutar la verificacion de permisos de administrador
 Test-Admin
 
-# === FUNCIONES VISUALES TIPO HACKER ===
+# === FUNCIONES VISUALES ===
 
-function Enable-FullscreenVisuals {
-    try {
-        $raw = $host.UI.RawUI
-        $maxSize = $raw.MaxPhysicalWindowSize
-        $raw.BufferSize = $maxSize
-        $raw.WindowSize = $maxSize
-    }
-    catch {
-        # Si no se puede maximizar, continuar sin error
-    }
-}
-
-function Render-Status {
-    param(
-        [string]$Message = "",
-        [string]$Level = "INFO"
-    )
-    try {
-        $raw = $host.UI.RawUI
-        $width = $raw.WindowSize.Width
-        $height = $raw.WindowSize.Height
-        
-        $statusLine = "[$(Get-Date -Format 'HH:mm:ss')] [$Level] $Message"
-        if ($statusLine.Length -gt ($width - 2)) {
-            $statusLine = $statusLine.Substring(0, $width - 5) + "..."
-        }
-        
-        $origPos = $raw.CursorPosition
-        $raw.CursorPosition = @{X=0;Y=($height - 2)}
-        Write-Host ((" " * $width)) -NoNewline
-        $raw.CursorPosition = @{X=0;Y=($height - 2)}
-        Write-Host $statusLine -ForegroundColor Green -BackgroundColor Black -NoNewline
-        $raw.CursorPosition = $origPos
-    }
-    catch {
-        # Ignorar errores
-    }
-}
-
-function Show-SplashScreen {
+function Show-HaZBanner {
     Clear-Host
-    
-    Write-Host ""
-    
-    # Linea superior animada
-    Write-Host "   " -NoNewline
-    for ($i = 0; $i -lt 10; $i++) {
-        Write-Host "-=" -ForegroundColor Green -NoNewline
-        Start-Sleep -Milliseconds 40
-    }
-    Write-Host ""
-    
-    Write-Host ""
-    
-    # Banner personalizado "HaZ with IA"
-    Write-Host "   " -NoNewline
-    foreach ($c in "H") { Write-Host $c -ForegroundColor Yellow -NoNewline; Start-Sleep -Milliseconds 80 }
-    foreach ($c in "a") { Write-Host $c -ForegroundColor Yellow -NoNewline; Start-Sleep -Milliseconds 80 }
-    foreach ($c in "Z") { Write-Host $c -ForegroundColor Yellow -NoNewline; Start-Sleep -Milliseconds 80 }
-    Write-Host " " -NoNewline
-    foreach ($c in "with") { 
-        Write-Host $c[0] -ForegroundColor Cyan -NoNewline
-        Start-Sleep -Milliseconds 60
-    }
-    Write-Host " " -NoNewline
-    foreach ($c in "I") { Write-Host $c -ForegroundColor Magenta -NoNewline; Start-Sleep -Milliseconds 80 }
-    foreach ($c in "A") { Write-Host $c -ForegroundColor Magenta -NoNewline; Start-Sleep -Milliseconds 80 }
-    Write-Host ""
-    Write-Host ""
-    
-    # Logo AUTOCONFIG animado
-    $autoLogo = @(
-        "        #    #  #  #  #####  ####  #   #  #     #####   ####",
-        "        #    #  #  #    #    #     #   # #      #      #",
-        "        #    #  ####    #    ####  ### #  #     ####    ####",
-        "        #    #  #  #    #    #     # ##  #      #           #",
-        "        ####  #  #      #    ####  #  #  ####   ####     ####"
-    )
-    
-    foreach ($line in $autoLogo) {
-        Write-Host "   $line" -ForegroundColor Cyan
-        Start-Sleep -Milliseconds 80
-    }
-    
-    Write-Host ""
-    
-    # Linea inferior animada
-    Write-Host "   " -NoNewline
-    for ($i = 0; $i -lt 10; $i++) {
-        Write-Host "-=" -ForegroundColor Green -NoNewline
-        Start-Sleep -Milliseconds 40
-    }
-    Write-Host ""
-    
-    Write-Host ""
-    
-    # Version y creditos
-    Write-Host "   WINDOWS SYSTEM AUTOMATION TOOL v1.0" -ForegroundColor Cyan
-    Write-Host "   By: HaZ with GitHub Copilot (IA)" -ForegroundColor Green
-    
-    Write-Host ""
-    Write-Host "   > Presiona ENTER para continuar..." -ForegroundColor Yellow
-    Read-Host | Out-Null
-    Clear-Host
-}
-
-function Show-HackerBanner {
-    $lines = @(
-        "Iniciando modulos...",
-        "Analizando sistema...",
-        "Aplicando politicas...",
-        "Preparando herramientas...",
-        "Listo. Presiona ENTER para continuar."
-    )
-    
-    Clear-Host
-    foreach ($line in $lines) {
-        $out = ""
-        foreach ($c in $line.ToCharArray()) {
-            $out += $c
-            Write-Host -NoNewline $c -ForegroundColor DarkGreen
-            Start-Sleep -Milliseconds (Get-Random -Minimum 10 -Maximum 40)
-        }
-        Write-Host ""
-    }
-    Write-Host ""
-    Read-Host -Prompt "Pulsa ENTER para iniciar"
-    Clear-Host
-}
-
-function Show-Banner {
     $banner = @"
-                              
-@@@  @@@   @@@@@@   @@@@@@@@  
-@@@  @@@  @@@@@@@@  @@@@@@@@  
-@@!  @@@  @@!  @@@       @@!  
-!@!  @!@  !@!  @!@      !@!   
-@!@!@!@!  @!@!@!@!     @!!    
-!!!@!!!!  !!!@!!!!    !!!     
-!!:  !!!  !!:  !!!   !!:      
-:!:  !:!  :!:  !:!  :!:       
-::   :::  ::   :::   :: ::::  
- :   : :   :   : :  : :: : :  
-                              
+
+  _    _       ______ 
+ | |  | |     |___  / 
+ | |__| | __ _   / /  
+ |  __  |/ _` | / /   
+ | |  | | (_| |/ /__  
+ |_|  |_|\__,_/_____| 
+ 
+   AUTOMATION TOOL
 "@
     Write-Host $banner -ForegroundColor Cyan
+    Write-Host ""
 }
 
-# Activar visuales y mostrar splash screen + banner animado
-Enable-FullscreenVisuals
-Show-SplashScreen
-Show-HackerBanner
-Show-Banner
+function Show-Loading {
+    Write-Host "Cargando modulos..." -NoNewline
+    $chars = "|", "/", "-", "\"
+    for ($i = 0; $i -lt 10; $i++) {
+        foreach ($c in $chars) {
+            Write-Host "`b$c" -NoNewline
+            Start-Sleep -Milliseconds 100
+        }
+    }
+    Write-Host "`b Listo." -ForegroundColor Green
+    Start-Sleep -Seconds 1
+}
 
-# Funcion mejorada de logging con status visual
+# Funcion de logging simplificada (sin barra de estado)
 function Log-Status {
     param(
         [string]$Message,
@@ -186,14 +62,6 @@ function Log-Status {
     
     $displayColor = if ($colorMap.ContainsKey($Level)) { $colorMap[$Level] } else { $Color }
     Write-Host $logMessage -ForegroundColor $displayColor
-    
-    # Actualizar barra de estado
-    try {
-        Render-Status -Message $Message -Level $Level
-    }
-    catch {
-        # Ignorar errores de rendering
-    }
 }
 
 # Alias para compatibilidad
@@ -201,6 +69,10 @@ function Write-StatusLog {
     param([string]$Message, [string]$Level = "INFO", [string]$Color = "White")
     Log-Status -Message $Message -Level $Level -Color $Color
 }
+
+# Inicializacion visual
+Show-Loading
+Show-HaZBanner
 
 # =======================================
 # FUNCIONES PARA CADA ACCION
@@ -254,7 +126,8 @@ function Configurar-IP {
         if ($dnsOption -eq "s") {
             $dns1 = "94.140.14.14"
             $dns2 = "94.140.15.15"
-        } else {
+        }
+        else {
             $dns1 = Read-Host "Ingresa el servidor DNS preferido (e.g., 8.8.8.8)"
             $dns2 = Read-Host "Ingresa el servidor DNS alternativo (e.g., 8.8.4.4)"
         }
@@ -311,7 +184,8 @@ function Instalar-Programas {
         choco install $programa -y
         if ($LASTEXITCODE -eq 0) {
             Log-Status "$programa instalado correctamente" "SUCCESS"
-        } else {
+        }
+        else {
             Log-Status "Error al instalar $programa" "ERROR"
         }
     }
@@ -396,6 +270,133 @@ function Activar-Office-Windows {
     irm https://get.activated.win | iex
 }
 
+
+function Optimizar-Windows {
+    Log-Status "Iniciando optimizacion de Windows (Rendimiento y Privacidad)" "INFO" "Cyan"
+
+    # 1. Plan de Energia: Maximo Rendimiento
+    Log-Status "Configurando Plan de Energia..." "INFO" "Yellow"
+    try {
+        # Duplicar esquema de alto rendimiento para asegurar que exista Ultimate Performance si es compatible
+        powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 | Out-Null
+        powercfg -setactive e9a42b02-d5df-448d-aa00-03f14749eb61 | Out-Null
+        Log-Status "Plan de energia 'Maximo Rendimiento' activado" "SUCCESS"
+    }
+    catch {
+        $highPerf = "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
+        powercfg -setactive $highPerf | Out-Null
+        Log-Status "Plan de energia 'Alto Rendimiento' activado" "SUCCESS"
+    }
+
+    # 2. Desactivar Telemetria y Servicios Innecesarios
+    Log-Status "Desactivando telemetria y servicios en segundo plano..." "INFO" "Yellow"
+    $services = @(
+        "DiagTrack",             # Telemetria
+        "dmwappushservice",      # Enrutamiento de mensajes push WAP (Telemetria)
+        "SysMain",               # Superfetch (A veces causa alto uso de disco, opcional)
+        "MapsBroker",            # Mapas descargados
+        "WerSvc"                 # Reporte de errores de Windows
+    )
+
+    foreach ($service in $services) {
+        if (Get-Service $service -ErrorAction SilentlyContinue) {
+            Stop-Service -Name $service -Force -ErrorAction SilentlyContinue
+            Set-Service -Name $service -StartupType Disabled -ErrorAction SilentlyContinue
+            Log-Status "Servicio $service desactivado" "SUCCESS"
+        }
+    }
+
+    # 3. Desactivar Game DVR y Modo Juego (Barra de juegos)
+    Log-Status "Optimizando configuracion de juegos (GameDVR)..." "INFO" "Yellow"
+    try {
+        $regPath = "HKCU:\System\GameConfigStore"
+        if (!(Test-Path $regPath)) { New-Item -Path $regPath -Force | Out-Null }
+        New-ItemProperty -Path $regPath -Name "GameDVR_Enabled" -Value 0 -PropertyType DWord -Force | Out-Null
+        
+        $regPath2 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR"
+        if (!(Test-Path $regPath2)) { New-Item -Path $regPath2 -Force | Out-Null }
+        New-ItemProperty -Path $regPath2 -Name "AllowGameDVR" -Value 0 -PropertyType DWord -Force | Out-Null
+        
+        Log-Status "GameDVR desactivado (mejora rendimiento en juegos)" "SUCCESS"
+    }
+    catch {
+        Log-Status "No se pudo desactivar todo el GameDVR: $_" "WARNING"
+    }
+
+    # 4. Desactivar Cortana
+    Log-Status "Desactivando Cortana..." "INFO" "Yellow"
+    try {
+        $regPathCortana = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
+        if (!(Test-Path $regPathCortana)) { New-Item -Path $regPathCortana -Force | Out-Null }
+        New-ItemProperty -Path $regPathCortana -Name "AllowCortana" -Value 0 -PropertyType DWord -Force | Out-Null
+        Log-Status "Cortana desactivada" "SUCCESS"
+    }
+    catch {
+        Log-Status "Error al desactivar Cortana: $_" "WARNING"
+    }
+
+
+    Log-Status "Optimizacion completada. Reinicia para aplicar todos los cambios." "SUCCESS"
+}
+
+function Restaurar-Windows {
+    Log-Status "Iniciando ROLLBACK de optimizaciones..." "INFO" "Cyan"
+
+    # 1. Restaurar Plan de Energia (Equilibrado)
+    Log-Status "Restaurando plan de energia (Equilibrado)..." "INFO" "Yellow"
+    try {
+        powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e | Out-Null
+        Log-Status "Plan de energia 'Equilibrado' activado" "SUCCESS"
+    }
+    catch {
+        Log-Status "No se pudo restaurar el plan de energia (hazlo manualmente desde Panel de Control)" "WARNING"
+    }
+
+    # 2. Reactivar Servicios
+    Log-Status "Reactivando servicios del sistema..." "INFO" "Yellow"
+    $services = @(
+        "DiagTrack",
+        "dmwappushservice",
+        "SysMain",
+        "MapsBroker",
+        "WerSvc"
+    )
+
+    foreach ($service in $services) {
+        try {
+            Set-Service -Name $service -StartupType Automatic -ErrorAction SilentlyContinue
+            Start-Service -Name $service -ErrorAction SilentlyContinue
+            Log-Status "Servicio $service restaurado" "SUCCESS"
+        }
+        catch {
+            Log-Status "No se pudo restaurar servicio $service" "WARNING"
+        }
+    }
+
+    # 3. Reactivar GameDVR
+    Log-Status "Reactivando GameDVR..." "INFO" "Yellow"
+    try {
+        New-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Value 1 -PropertyType DWord -Force | Out-Null
+        New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" -Name "AllowGameDVR" -Value 1 -PropertyType DWord -Force | Out-Null
+        Log-Status "GameDVR reactivado" "SUCCESS"
+    }
+    catch {
+        Log-Status "Error al reactivar GameDVR" "WARNING"
+    }
+
+    # 4. Reactivar Cortana
+    Log-Status "Reactivando Cortana..." "INFO" "Yellow"
+    try {
+        New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCortana" -Value 1 -PropertyType DWord -Force | Out-Null
+        Log-Status "Cortana reactivada" "SUCCESS"
+    }
+    catch {
+        Log-Status "Error al reactivar Cortana" "WARNING"
+    }
+
+    Log-Status "Rollback completado. Reinicia tu equipo." "SUCCESS"
+}
+
 function Limpiar-Sistema {
     Log-Status "Iniciando limpieza del sistema" "INFO" "Cyan"
     try {
@@ -432,6 +433,8 @@ do {
     Write-Host "5. Configurar AnyDesk" -ForegroundColor White
     Write-Host "6. Activar Office y Windows" -ForegroundColor White
     Write-Host "7. Limpiar el Sistema" -ForegroundColor White
+    Write-Host "8. Optimizar Windows (Rendimiento/Privacidad)" -ForegroundColor Green
+    Write-Host "9. Deshacer Optimizaciones (Rollback)" -ForegroundColor Yellow
     Write-Host "0. Salir" -ForegroundColor Red
     Write-Host "=====================================" -ForegroundColor Magenta
 
@@ -446,6 +449,8 @@ do {
         "5" { Configurar-AnyDesk }
         "6" { Activar-Office-Windows }
         "7" { Limpiar-Sistema }
+        "8" { Optimizar-Windows }
+        "9" { Restaurar-Windows }
         "0" { 
             Log-Status "Saliendo del menu..." "INFO"
             break 

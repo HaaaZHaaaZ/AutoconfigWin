@@ -1,6 +1,6 @@
-# 🖥️ AutoconfigWin - Script de Automatización para Windows
+# 🖥️ AutoconfigWin - Optimización y Configuración para Windows
 
-> Script PowerShell que automatiza configuración de Windows con efectos visuales tipo "hacker"
+> Script de PowerShell todo-en-uno para configurar, optimizar y limpiar Windows 10 y 11. Ahora con un diseño limpio y nuevas funciones de rendimiento.
 
 ![PowerShell](https://img.shields.io/badge/PowerShell-5.0+-blue?style=flat-square&logo=powershell)
 ![Windows](https://img.shields.io/badge/Windows-10%2F11-0078D4?style=flat-square&logo=windows)
@@ -8,50 +8,10 @@
 
 ---
 
-## ¿Qué hace este script?
+## 🚀 Instalación Rápida (Recomendado)
 
-`ConfigurarEquipo.ps1` es una herramienta de automatización que permite configurar una PC con Windows de forma rápida y visual. Incluye las siguientes funcionalidades:
+La forma más rápida de usar este script es ejecutarlo directamente desde PowerShell (como Administrador) sin descargar nada:
 
-1. **Configurar Red (IP y DNS)** - Establece dirección IP y servidores DNS
-2. **Instalar Programas** - Instala automáticamente una lista de programas via Chocolatey
-3. **Actualizar Drivers** - Descarga e instala Driver Booster para actualizar drivers
-4. **Personalizar Escritorio** - Oculta elementos innecesarios de Windows
-5. **Configurar AnyDesk** - Configura acceso remoto
-6. **Activar Office/Windows** - Herramientas de activación
-7. **Limpiar Sistema** - Elimina archivos temporales y libera espacio
-
----
-
-## ✨ Características Visuales
-
-El script incluye **efectos visuales tipo "hacker"**:
-- 🖥️ Pantalla maximizada automáticamente
-- 🎬 Animación de inicio con efecto máquina de escribir (verde)
-- 📊 Barra de estado persistente en tiempo real
-- 🎨 Logs codificados por color (INFO, SUCCESS, WARNING, ERROR)
-
----
-
-## 🚀 Cómo Usar
-
-### Opción 1: Launcher Fácil (Recomendado)
-```bash
-# Haz doble clic en:
-Ejecutar_Script.bat
-```
-
-### Opción 2: PowerShell como Administrador
-```powershell
-powershell -ExecutionPolicy Bypass -File "ConfigurarEquipo.ps1"
-```
-
-### Opción 3: Ver Demo (Sin modificar sistema)
-```powershell
-# Para ver los efectos visuales sin hacer cambios:
-powershell -ExecutionPolicy Bypass -File "Demo_Visual.ps1"
-```
-
-### Opción 4: Ejecutar Directamente desde GitHub
 ```powershell
 # Descarga y ejecuta el script desde GitHub directamente:
 iex (irm 'https://raw.githubusercontent.com/HaaaZHaaaZ/AutoconfigWin/refs/heads/master/ConfigurarEquipo.ps1')
@@ -59,156 +19,101 @@ iex (irm 'https://raw.githubusercontent.com/HaaaZHaaaZ/AutoconfigWin/refs/heads/
 
 ---
 
+## ¿Qué hace este script?
+
+`ConfigurarEquipo.ps1` es una "navaja suiza" para tu sistema. Permite realizar tareas complejas en segundos a través de un menú interactivo.
+
+### ✨ Nuevas Funciones (v3.0)
+*   **Interfaz Limpia**: Nuevo diseño profesional con banner ASCII "HaZ" y carga rápida.
+*   **Optimización Windows 11**: Opción dedicada para mejorar FPS y reducir latencia.
+*   **Modo Rollback**: ¿Te arrepentiste? Deshaz los cambios con un solo clic.
+
+### 📋 Características Principales
+1.  **Configurar Red**: Establece IP estática/DHCP y DNS rápidos (AdGuard/Google).
+2.  **Software Esencial**: Instala Chrome, WinRAR, AnyDesk, Office 365 y más con un clic.
+3.  **Drivers**: Descarga y actualiza todos tus drivers automáticamente.
+4.  **Personalización**: Limpia tu barra de tareas y elimina bloatware visual.
+5.  **Optimización (NUEVO)**: 
+    *   Activa plan "Máximo Rendimiento".
+    *   Elimina Telemetría y rastreadores.
+    *   Desactiva GameDVR para más FPS.
+6.  **Limpieza**: Elimina basura del sistema y libera espacio.
+
+---
+
+## �️ Cómo Usar (Otras opciones)
+
+### Opción 1: Launcher Fácil
+Si descargaste el proyecto, simplemente haz doble clic en:
+`Ejecutar_Script.bat`
+
+### Opción 2: PowerShell Local
+```powershell
+powershell -ExecutionPolicy Bypass -File "ConfigurarEquipo.ps1"
+```
+
+### Opción 3: Ver Demo Visual
+¿Quieres ver cómo luce sin cambiar nada en tu PC?
+```powershell
+.\Demo_Visual.ps1
+```
+
+---
+
+## 🎮 Menú de Opciones
+
+| Opción | Descripción |
+| :--- | :--- |
+| **1** | **Red y DNS**: Cambiar IP y configurar DNS seguros. |
+| **2** | **Instalar Programas**: Pack básico (Navegadores, Utilidades, Office). |
+| **3** | **Drivers**: Actualización automática via Driver Booster. |
+| **4** | **Personalizar**: Escritorio limpio y minimalista. |
+| **5** | **AnyDesk**: Configurar acceso remoto con contraseña. |
+| **6** | **Activar**: Herramientas para Windows y Office. |
+| **7** | **Limpieza**: Borrar temporales y vaciar papelera. |
+| **8** | **CALIDAD/RENDIMIENTO**: Optimizar Windows para Gaming/Privacidad. |
+| **9** | **ROLLBACK**: Deshacer optimizaciones y restaurar valores. |
+| **0** | **Salir** |
+
+---
+
 ## ⚙️ Requisitos
 
-- **Windows 10 o 11**
-- **PowerShell 5.0+** (incluido en Windows)
-- **Permisos de Administrador**
-- **Conexión a Internet** (para instalar programas)
-
----
-
-## � Menú Principal
-
-Al ejecutar el script, aparecerá un menú interactivo:
-
-```
-========== MENU DE AUTOMATIZACION ==========
-
-1. Cambiar configuracion de red (IP y DNS)
-2. Instalar programas predeterminados
-3. Actualizacion de Drivers
-4. Personalizar Escritorio y Barra de Tareas
-5. Configurar AnyDesk
-6. Activar Office y Windows
-7. Limpiar Sistema
-0. Salir
-
-Selecciona una opcion: █
-```
-
----
-
-## 🎨 Opciones Disponibles
-
-### 1️⃣ Configurar Red (IP y DNS)
-- **DHCP automático** - Obtiene IP automáticamente
-- **IP estática** - Configura IP manual
-- **DNS personalizados** - AdGuard, Google o personalizados
-
-### 2️⃣ Instalar Programas
-Instala automáticamente:
-- Google Chrome
-- Opera
-- WinRAR
-- AnyDesk
-- Notepad++
-- Visual C++ Redistributable
-- Office 365
-- Adobe Reader
-
-### 3️⃣ Actualizar Drivers
-- Descarga e instala Driver Booster
-- Actualiza automáticamente todos los drivers
-
-### 4️⃣ Personalizar Escritorio
-- Oculta botón de Vistas de Tareas
-- Oculta cuadro de búsqueda
-- Desactiva noticias e intereses
-
-### 5️⃣ Configurar AnyDesk
-- Configura contraseña de acceso remoto
-
-- Herramientas para activación
-
-### 7️⃣ Limpiar Sistema
-- Elimina archivos temporales
-- Vacía papelera de reciclaje
-- Libera espacio en disco
-
----
-
-## 📊 Colores en la Consola
-
-| Color | Significa |
-|-------|-----------|
-| 🟢 Verde | ✅ Éxito / Completado |
-| ⚪ Blanco | ℹ️ Información |
-| 🟡 Amarillo | ⚠️ Advertencia |
-| 🔴 Rojo | ❌ Error |
+*   **Windows 10 o 11** (Totalmente compatible con 24H2/25H2).
+*   **PowerShell 5.0+** (Viene por defecto).
+*   **Permisos de Administrador**.
+*   **Internet** (Para descargar programas).
 
 ---
 
 ## 🐛 Solución de Problemas
 
-### "Acceso denegado"
+### 1. Error: "La ejecución de scripts está deshabilitada..."
+Si al ejecutar `.\Demo_Visual.ps1` o el script principal recibes este error en rojo:
+> *...porque la ejecución de scripts está deshabilitada en este sistema...*
+
+**Solución:**
+Tienes que permitir la ejecución de scripts en PowerShell. Copia y pega este comando y presiona Enter:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-→ Ejecuta PowerShell como Administrador
+(Presiona 'S' o 'Y' para confirmar si te pregunta).
+
+Alternativamente, ejecuta el script con este comando que salta la restricción temporalmente:
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\Demo_Visual.ps1"
 ```
 
-### "El script no se ejecuta"
-```
-→ Ejecuta en PowerShell:
-  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-```
-
-### "Los visuales no aparecen"
-```
-→ Normal en algunos terminales. El script funciona igual.
-```
-
-### "Error de Chocolatey"
-```
-→ Instala Chocolatey manualmente:
-  iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-```
+### 2. Error: "Acceso Denegado"
+Si ves mensajes de error escribiendo archivos o cambiando configuraciones:
+**Solución:** Debes ejecutar PowerShell o la Terminal como **Administrador** (Clic derecho > Ejecutar como administrador).
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la **Licencia MIT** - ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la Licencia MIT. Eres libre de usarlo, modificarlo y compartirlo.
 
-```
-MIT License
-
-Copyright (c) 2025 HaaaZHaaaZ
-
-Permiso para usar, copiar, modificar, fusionar, publicar, distribuir, 
-sublicenciar, y/o vender copias del Software.
-```
-
----
-
-## 🙏 Créditos
-
-- **Autor**: HaaaZHaaaZ
-- **Versión**: 2.1
-- **Última actualización**: 13 de noviembre de 2025
-- **Desarrollado con asistencia de**: GitHub Copilot (IA)
-
----
-
-## 🎯 Roadmap Futuro
-
-AutoconfigWin/
-├── ConfigurarEquipo.ps1      ← Script principal
-├── Demo_Visual.ps1           ← Demo sin admin
-├── Ejecutar_Script.bat       ← Launcher
-├── README.md                 ← Este archivo
-├── GUIA_RAPIDA.txt          ← Referencia rápida
-├── LICENSE                   ← MIT License
-└── SDI/                      ← Herramientas opcionales (drivers)
-    ├── SDI_auto.bat
-    ├── SDI_R2408.exe
-    ├── SDI_x64_R2408.exe
-    ├── drivers/              ← Drivers adicionales
-    ├── indexes/              ← Datos de indexación
-    └── tools/                ← Herramientas auxiliares
-```
-
-**Nota**: La carpeta SDI contiene herramientas opcionales para actualización de drivers. El script principal maneja todo automáticamente.
-
----
-
-**¿Listo para automatizar tu Windows? Ejecuta `Ejecutar_Script.bat` 🚀**
+**Autor**: HaaaZHaaaZ
+**Versión**: 3.0 (Update Visual & Performance)

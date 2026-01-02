@@ -1,86 +1,36 @@
 # DEMO DEL SCRIPT VISUAL - SIN REQUERIR ADMIN
 # Este script demuestra los efectos visuales del script principal
 
-function Enable-FullscreenVisuals {
-    try {
-        $raw = $host.UI.RawUI
-        $maxSize = $raw.MaxPhysicalWindowSize
-        $raw.BufferSize = $maxSize
-        $raw.WindowSize = $maxSize
-        Write-Host "Consola maximizada." -ForegroundColor Green
-    }
-    catch {
-        Write-Host "No se pudo maximizar la consola (normal en algunos terminales)." -ForegroundColor Yellow
-    }
-}
+# === FUNCIONES VISUALES ===
 
-function Render-Status {
-    param(
-        [string]$Message = "",
-        [string]$Level = "INFO"
-    )
-    try {
-        $raw = $host.UI.RawUI
-        $width = $raw.WindowSize.Width
-        $height = $raw.WindowSize.Height
-        
-        $statusLine = "[$(Get-Date -Format 'HH:mm:ss')] [$Level] $Message"
-        if ($statusLine.Length -gt ($width - 2)) {
-            $statusLine = $statusLine.Substring(0, $width - 5) + "..."
-        }
-        
-        $origPos = $raw.CursorPosition
-        $raw.CursorPosition = @{X=0;Y=($height - 2)}
-        Write-Host ((" " * $width)) -NoNewline
-        $raw.CursorPosition = @{X=0;Y=($height - 2)}
-        Write-Host $statusLine -ForegroundColor Green -BackgroundColor Black -NoNewline
-        $raw.CursorPosition = $origPos
-    }
-    catch {
-        # Ignorar errores
-    }
-}
-
-function Show-HackerBanner {
-    $lines = @(
-        "Iniciando modulos...",
-        "Analizando sistema...",
-        "Aplicando politicas...",
-        "Preparando herramientas...",
-        "Listo. Presiona ENTER para continuar."
-    )
-    
+function Show-HaZBanner {
     Clear-Host
-    foreach ($line in $lines) {
-        $out = ""
-        foreach ($c in $line.ToCharArray()) {
-            $out += $c
-            Write-Host -NoNewline $c -ForegroundColor DarkGreen
-            Start-Sleep -Milliseconds (Get-Random -Minimum 10 -Maximum 40)
-        }
-        Write-Host ""
-    }
-    Write-Host ""
-    Read-Host -Prompt "Pulsa ENTER para iniciar"
-    Clear-Host
-}
-
-function Show-Banner {
     $banner = @"
-                              
-@@@  @@@   @@@@@@   @@@@@@@@  
-@@@  @@@  @@@@@@@@  @@@@@@@@  
-@@!  @@@  @@!  @@@       @@!  
-!@!  @!@  !@!  @!@      !@!   
-@!@!@!@!  @!@!@!@!     @!!    
-!!!@!!!!  !!!@!!!!    !!!     
-!!:  !!!  !!:  !!!   !!:      
-:!:  !:!  :!:  !:!  :!:       
-::   :::  ::   :::   :: ::::  
- :   : :   :   : :  : :: : :  
-                              
+
+  _    _       ______ 
+ | |  | |     |___  / 
+ | |__| | __ _   / /  
+ |  __  |/ _` | / /   
+ | |  | | (_| |/ /__  
+ |_|  |_|\__,_/_____| 
+ 
+   AUTOMATION TOOL
 "@
     Write-Host $banner -ForegroundColor Cyan
+    Write-Host ""
+}
+
+function Show-Loading {
+    Write-Host "Cargando modulos..." -NoNewline
+    $chars = "|", "/", "-", "\"
+    for ($i = 0; $i -lt 10; $i++) {
+        foreach ($c in $chars) {
+            Write-Host "`b$c" -NoNewline
+            Start-Sleep -Milliseconds 100
+        }
+    }
+    Write-Host "`b Listo." -ForegroundColor Green
+    Start-Sleep -Seconds 1
 }
 
 function Log-Status {
@@ -101,20 +51,12 @@ function Log-Status {
     
     $displayColor = if ($colorMap.ContainsKey($Level)) { $colorMap[$Level] } else { $Color }
     Write-Host $logMessage -ForegroundColor $displayColor
-    
-    try {
-        Render-Status -Message $Message -Level $Level
-    }
-    catch {
-        # Ignorar errores
-    }
 }
 
 # === INICIO DE LA DEMO ===
 
-Enable-FullscreenVisuals
-Show-HackerBanner
-Show-Banner
+Show-Loading
+Show-HaZBanner
 
 # Demo del sistema de logging con status
 Write-Host "`n=== DEMO DE FUNCIONALIDADES VISUALES ===" -ForegroundColor Cyan
